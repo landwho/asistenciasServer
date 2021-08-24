@@ -28,7 +28,7 @@ router.get('/api/login/:id',(req, res)=>{
     mysqlConnecttion.query(clientHistorial, [id],(error,data,flieds)=>{
         if(!!error) console.log(error.message);
         else if(data[0] == 0){ 
-                let error = "Carnet Invalido";
+                let error = "* Carnet Invalido";
                 res.send(error);
             }
             else if(data[0].solvencia_estudiante == "NO"){
