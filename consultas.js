@@ -42,6 +42,28 @@ router.get('/api/login/:id',(req, res)=>{
 });
 
 
+router.get('/api/user/courses/:id',(req, res)=>{
+
+    let {id} = req.params;
+    const clientHistorial =`call getUserCourses(?);`;
+
+    mysqlConnecttion.query(clientHistorial, [id],(error,data,flieds)=>{
+        if(!!error) console.log(error.message);
+        else if(data[0] == 0){ 
+                let error = "Carnet Invalido";
+                res.send(error);
+            }
+            else if(data[0].solvencia_estudiante == "NO"){
+                let solvencia = "Estudiante no solvente";
+                res.send(solvencia);
+            }
+            else{
+                res.send(data[0]);
+            }
+    });
+});
+
+
 
 
 
