@@ -11,8 +11,8 @@ app.use(morgan('dev'));
 
 //Routes
 
-const serverPort = 3000;
-// const serverPort = 443;
+// const serverPort = 3000;
+const serverPort = 33466;
 console.log(serverPort);
 app.set('port', process.env.PORT || serverPort);
 
