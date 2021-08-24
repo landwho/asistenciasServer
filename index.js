@@ -17,10 +17,6 @@ console.log(serverPort);
 app.set('port', process.env.PORT || serverPort);
 
 
-
-
-
-
 // Middlewares
 app.use(cors());
 app.use(express.json());
