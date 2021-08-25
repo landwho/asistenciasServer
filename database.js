@@ -9,12 +9,13 @@ const mysql = require('mysql');
     // port: 3306
     
 
- 
-//     host: 'baj9a82sgal6klndqli9-mysql.services.clever-cloud.com',
-//     user: 'uszh9oepnyl7wmyb',
-//     password: 'GMcPy0J2Dd3absyNMROi',
-//     database : 'baj9a82sgal6klndqli9',
-//     port: 3306   
+    // host: 'baj9a82sgal6klndqli9-mysql.services.clever-cloud.com',
+    // user: 'uszh9oepnyl7wmyb',
+    // password: 'GMcPy0J2Dd3absyNMROi',
+    // database : 'baj9a82sgal6klndqli9',
+    // port: 3306   
+
+    
 
 // });
 
@@ -23,6 +24,7 @@ const mysql = require('mysql');
 //     if(err){console.log(err); 
 //         return;}else{console.log('DataBase is Connected!')}
 // });
+
 
 
 
@@ -46,7 +48,7 @@ function handleDisconnect() {
     if(err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
       setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-    }                                     // to avoid a hot loop, and to allow our node script to
+    } else{ console.log('DataBase is Connected!') } // to avoid a hot loop, and to allow our node script to
   });                                     // process asynchronous requests in the meantime.
                                           // If you're also serving http, display a 503 error.
   connection.on('error', function(err) {
@@ -72,4 +74,9 @@ handleDisconnect();
 
 
 
+
+
+
 // module.exports = mysqlConnection;
+
+module.exports = connection;
