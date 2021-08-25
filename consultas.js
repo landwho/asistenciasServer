@@ -64,11 +64,6 @@ router.get('/api/user/courses/:id',(req, res)=>{
 });
 
 
-
-
-//insert into asistencia (nombre_estudiante, apellido_estudiante, carnet_estudiante, nombre_curso, fecha_asistencia) values("","","","","","",)
-
-
 router.put('/api/user/asistencias',(req,res)=>{
     const {nombre_estudiante,apellido_estudiante,carnet_estudiante,nombre_curso,fecha_asistencia} = req.body;
     const setAsistencia = 'insert into asistencia (nombre_estudiante, apellido_estudiante, carnet_estudiante, nombre_curso, fecha_asistencia) values(?,?,?,?,?)';
