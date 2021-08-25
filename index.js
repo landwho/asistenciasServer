@@ -40,6 +40,8 @@ app.set('port', process.env.PORT || serverPort);
 // Middlewares
 app.use(require('./consultas'));
 app.use(cors());
+app.use(cors({ origin: 'https://app-asistencia.herokuapp.com/' , credentials :  true,  methods: 'GET,PUT,POST,OPTIONS', allowedHeaders: 'Content-Type,Authorization' }));
+
 app.use(express.json());
 
 
