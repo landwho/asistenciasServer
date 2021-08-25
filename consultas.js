@@ -12,7 +12,7 @@ router.get('/',cors(),(req, res)=>{
 });
 
 
-router.get('/api/allcourses',(req, res)=>{
+router.get('/api/allcourses',cors(),(req, res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     mysqlConnecttion.query('select * from cursos',(err,data,fields)=>{
         if(!err){ res.json(data)}else{ console.log(err);}
@@ -22,7 +22,7 @@ router.get('/api/allcourses',(req, res)=>{
 
 
 
-router.get('/api/login/:id',(req, res)=>{
+router.get('/api/login/:id',cors(),(req, res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     let {id} = req.params;
     const clientHistorial =`call getUser(?);`;
@@ -44,7 +44,7 @@ router.get('/api/login/:id',(req, res)=>{
 });
 
 
-router.get('/api/user/courses/:id',(req, res)=>{
+router.get('/api/user/courses/:id',cors(),(req, res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     let {id} = req.params;
     const clientHistorial =`call getUserCourses(?);`;
@@ -66,7 +66,7 @@ router.get('/api/user/courses/:id',(req, res)=>{
 });
 
 
-router.put('/api/user/asistencias',(req,res)=>{
+router.put('/api/user/asistencias',cors(),(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
     const {nombre_estudiante,apellido_estudiante,carnet_estudiante,nombre_curso,fecha_asistencia} = req.body;
     const setAsistencia = 'insert into asistencia (nombre_estudiante, apellido_estudiante, carnet_estudiante, nombre_curso, fecha_asistencia) values(?,?,?,?,?)';

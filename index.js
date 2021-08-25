@@ -38,9 +38,10 @@ app.set('port', process.env.PORT || serverPort);
 
 
 // Middlewares
+app.use(require('./consultas'));
 app.use(cors());
 app.use(express.json());
 
-app.use(require('./consultas'));
+
 
 app.listen(app.get('port'), ()=>{ console.log('Server on Port',app.get('port'))});
