@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
-var cors = require('cors');
+const cors = require('cors');
+
 const router = express.Router();
 
 
