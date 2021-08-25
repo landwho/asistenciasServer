@@ -19,11 +19,10 @@ app.use(morgan('dev'));
 
 
 
-app.use(function (req, res, next){
-    res.setHeader('Access-Control-Allow-Origin', 'https://app-asistencia.herokuapp.com');
-    res.setHeader('Access-Control-Allow-Methods', 'GET','PUT','DELETE');
-
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type');
+app.use((req, response, next)=>{
+    response.header('Access-Control-Allow-Origin', '*');
+    response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, content-type, Content-Type, Accept');
+    response.header('Access-Control-Allow-Methods', 'GET','PUT','DELETE');
     next();
 });
 
