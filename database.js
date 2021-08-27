@@ -1,6 +1,7 @@
-const mysql = require('mysql');
+// const mysql = require('mysql');
+const mysql = require('mysql2');
 
-const mysqlConnection = mysql.createConnection({
+const mysqlConnection =  mysql.createConnection({
 
     // host: '127.0.0.1',
     // user: 'root',
@@ -20,8 +21,12 @@ const mysqlConnection = mysql.createConnection({
 
 
 mysqlConnection.connect(function(err){
-    if(err){console.log(err); 
-        return;}else{console.log('DataBase is Connected!')}
+    if(err){
+        console.log(err); 
+        return;
+    }else{
+        console.log('DataBase is Connected!');
+    }
 });
 
 

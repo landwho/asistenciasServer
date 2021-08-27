@@ -1,8 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser')
-const router = express.Router();
+const bodyParser = require('body-parser');
 const app = express();
 
 app.use(morgan('dev'));
@@ -42,6 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(require('./consultas'));
 app.use(cors());
+
 app.use(cors({ origin: 'https://app-asistencia.herokuapp.com/' , credentials :  true,  methods: 'GET,PUT,POST,OPTIONS', allowedHeaders: 'Content-Type,Authorization' }));
 
 app.use(express.json());

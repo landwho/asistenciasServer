@@ -285,7 +285,29 @@ FOREIGN KEY (cursoID) REFERENCES cursos (id_curso);
 
 
 
+-- TABLE DE ASISTENCIAS 
 
+
+create table asistencias(
+id_asistencia int auto_increment primary key,
+fecha_asistencia date, 
+cursoID int,
+estudianteID int
+);
+
+ALTER TABLE asistencias ADD 
+FOREIGN KEY (cursoID) REFERENCES cursos (id_curso),
+add 
+FOREIGN KEY (estudianteID) REFERENCES estudiantes (id_estudiante);
+
+-- YYYY-MM-DD
+
+insert into asistencias (fecha_asistencia, cursoID, estudianteID) 
+values ("2021-08-27",36,4);
+insert into asistencias (fecha_asistencia, cursoID, estudianteID) 
+values ("2021-08-27",1,5);
+insert into asistencias (fecha_asistencia, cursoID, estudianteID) 
+values ("2021-08-27",1,6);
 
 
 
@@ -362,6 +384,14 @@ WHERE carnet_estudiante = "1990-09-15892" and password_estudiante = "1234"
 group by nombre_estudiante;
 
 
+-- SELECCIONAR FECHA PARA VER ASISTENCIAS 
+
+select nombre_estudiante, carnet_estudiante, nombre_curso , fecha_asistencia
+from asistencias a 
+inner JOIN estudiante e on a.estudianteID = e.id_estudiante  
+inner JOIN cursos c on a.cursoID = c.id_curso 
+where a.cursoID = 1 and a.fecha_asistencia = "2021-08-27"
+group by nombre_estudiante;
 
 
 
@@ -415,4 +445,30 @@ inner JOIN estudiante e on e.id_estudiante = cc.estudianteID
 inner JOIN cursos c on cc.cursoID = c.id_curso 
 where cc.estudianteID = _id
 group by nombre_curso;
+END
+
+
+
+-- STORE PROCEDURE PARA ENVAIR ASISTENCIAS 
+
+CREATE PROCEDURE `sendAssist` (_date date, _cursoID int, _estudianteID int)
+BEGIN
+insert into asistencias (fecha_asistencia, cursoID, estudianteID) 
+values (_date,_cursoID,_estudianteID);
+END
+
+
+
+-- STORE PROCEDURES FOR SEE ASSISTS
+
+CREATE PROCEDURE `seeAssists` (_idCourse int, _date date)
+BEGIN
+
+select nombre_estudiante, carnet_estudiante, nombre_curso , fecha_asistencia
+from asistencias a 
+inner JOIN estudiante e on a.estudianteID = e.id_estudiante  
+inner JOIN cursos c on a.cursoID = c.id_curso 
+where a.cursoID = _idCourse and a.fecha_asistencia = _date
+group by nombre_estudiante;
+
 END

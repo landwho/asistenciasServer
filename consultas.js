@@ -21,31 +21,8 @@ router.get('/api/allcourses',cors(),(req, res)=>{
 
 
 
-// router.get('/api/login/:id',cors(),(req, res)=>{
-//     res.header('Access-Control-Allow-Origin', '*');
-//     let {id} = req.params;
-//     const clientHistorial =`call getUser(?);`;
-
-//     mysqlConnecttion.query(clientHistorial, [id],(error,data,flieds)=>{
-        // if(!!error) console.log(error.message);
-        // else if(data[0] == 0){ 
-        //         let error = "* Carnet Invalido";
-        //         res.send(error);
-        //     }
-        //     else if(data[0].solvencia_estudiante == "NO"){
-        //         let solvencia = "Estudiante no solvente";
-        //         res.send(solvencia);
-        //     }
-        //     else{
-        //         res.send(data[0]);
-        //     }
-//     });
-// });
-
-
-
 router.post('/api/login',cors(),(req,res)=>{
-    
+
     res.header('Access-Control-Allow-Origin', '*');
 
     const { carnet_estudiante, password_estudiante }= req.body;
@@ -93,11 +70,11 @@ router.get('/api/user/courses/:id',cors(),(req, res)=>{
 });
 
 
-router.put('/api/user/asistencias',cors(),(req,res)=>{
+router.post('/api/user/enviarasistencia',cors(),(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
-    const {nombre_estudiante,apellido_estudiante,carnet_estudiante,nombre_curso,fecha_asistencia} = req.body;
-    const setAsistencia = 'insert into asistencia (nombre_estudiante, apellido_estudiante, carnet_estudiante, nombre_curso, fecha_asistencia) values(?,?,?,?,?)';
-    mysqlConnecttion.query(setAsistencia,[nombre_estudiante,apellido_estudiante,carnet_estudiante,nombre_curso,fecha_asistencia],(error, data, fields)=>{
+    const {fecha_asistencia,cursoID,estudianteID} = req.body;
+    const sendAssist = 'call sendAssist(?,?,?);';
+    mysqlConnecttion.query(sendAssist,[fecha_asistencia,cursoID,estudianteID],(error, data, fields)=>{
             console.log(data)
         if(!error){ 
             res.json({message: 'Asistencia enviada'});
