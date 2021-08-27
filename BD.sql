@@ -27,12 +27,6 @@ alter table estudiante add
 FOREIGN KEY (solvenciaID) REFERENCES solvencia (id_solvencia);  
 
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
-values ("Mario Alfredo","Tubac Gomez","1990-14-15892","0000",1);
-
-insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
-values ("Maria Jose","Alvares Flores","1990-13-15892","0000",1);
-
-insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Maria Jose","Alvares Flores","1990-12-15892","0000",1);
 
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
@@ -43,6 +37,12 @@ values ("Jose Antonio","Esteves Chaves","1990-10-15892","0000",2);
 
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Jorge Ricardo","Ubico Brooks","1990-09-15892","1234",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Mario Alfredo","Tubac Gomez","1990-14-15892","0000",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Maria Jose","Alvares Flores","1990-13-15892","0000",1);
 
 
 
@@ -402,4 +402,17 @@ FROM estudiante
 WHERE carnet_estudiante = _carnet and password_estudiante = _pass
 group by nombre_estudiante;
 
+END
+
+
+-- STORE PROCEDURE FOR USER COURSES 
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getUserCourses`(_id int)
+BEGIN
+select nombre_curso , nombre_estudiante, apellido_estudiante, carnet_estudiante
+from curso_estudiante cc
+inner JOIN estudiante e on e.id_estudiante = cc.estudianteID
+inner JOIN cursos c on cc.cursoID = c.id_curso 
+where cc.estudianteID = _id
+group by nombre_curso;
 END
