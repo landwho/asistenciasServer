@@ -31,7 +31,7 @@ app.use((req, response, next)=>{
 
 //Routes
 
-// const serverPort = 3000;
+
 const serverPort = 33466;
 console.log(serverPort);
 app.set('port', process.env.PORT || serverPort);
