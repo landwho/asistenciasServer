@@ -45,7 +45,7 @@ router.get('/api/allcourses',cors(),(req, res)=>{
 
 
 
-router.get('/api/login',cors(),(req,res)=>{
+router.post('/api/login',cors(),(req,res)=>{
     res.header('Access-Control-Allow-Origin', '*');
 
     const { carnet_estudiante, password_estudiante }= req.body;
@@ -53,7 +53,7 @@ router.get('/api/login',cors(),(req,res)=>{
     const login = `call login(?,?)`
 
     mysqlConnecttion.query(login,[carnet_estudiante, password_estudiante],(error, data, fields)=>{
-        console.log(data)  
+        // console.log(data)  
         if(!!error) console.log(error.message);
         else if(data[0] == 0){ 
             let error = "* Credenciales invalidas";
