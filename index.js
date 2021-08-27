@@ -3,9 +3,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const router = express.Router();
-
-
 const app = express();
+
 app.use(morgan('dev'));
 
 //global variables
