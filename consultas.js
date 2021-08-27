@@ -45,6 +45,7 @@ router.get('/api/allcourses',cors(),(req, res)=>{
 
 
 router.post('/api/login',cors(),(req,res)=>{
+    
     res.header('Access-Control-Allow-Origin', '*');
 
     const { carnet_estudiante, password_estudiante }= req.body;
