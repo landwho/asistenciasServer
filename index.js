@@ -18,9 +18,7 @@ app.use(morgan('dev'));
 //     next();
 //  });
 
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
+
 
 app.use((req, response, next)=>{
     response.header('Access-Control-Allow-Origin', '*');
@@ -40,6 +38,9 @@ app.set('port', process.env.PORT || serverPort);
 
 
 // Middlewares
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 app.use(require('./consultas'));
 app.use(cors());
 app.use(cors({ origin: 'https://app-asistencia.herokuapp.com/' , credentials :  true,  methods: 'GET,PUT,POST,OPTIONS', allowedHeaders: 'Content-Type,Authorization' }));
