@@ -22,25 +22,52 @@ router.get('/api/allcourses',cors(),(req, res)=>{
 
 
 
-router.get('/api/login/:id',cors(),(req, res)=>{
-    res.header('Access-Control-Allow-Origin', '*');
-    let {id} = req.params;
-    const clientHistorial =`call getUser(?);`;
+// router.get('/api/login/:id',cors(),(req, res)=>{
+//     res.header('Access-Control-Allow-Origin', '*');
+//     let {id} = req.params;
+//     const clientHistorial =`call getUser(?);`;
 
-    mysqlConnecttion.query(clientHistorial, [id],(error,data,flieds)=>{
+//     mysqlConnecttion.query(clientHistorial, [id],(error,data,flieds)=>{
+        // if(!!error) console.log(error.message);
+        // else if(data[0] == 0){ 
+        //         let error = "* Carnet Invalido";
+        //         res.send(error);
+        //     }
+        //     else if(data[0].solvencia_estudiante == "NO"){
+        //         let solvencia = "Estudiante no solvente";
+        //         res.send(solvencia);
+        //     }
+        //     else{
+        //         res.send(data[0]);
+        //     }
+//     });
+// });
+
+
+
+router.get('/api/login',cors(),(req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+
+    const { carnet_estudiante, password_estudiante }= req.body;
+
+    const login = `call login(?,?)`
+
+    mysqlConnecttion.query(login,[carnet_estudiante, password_estudiante],(error, data, fields)=>{
+        console.log(data)  
         if(!!error) console.log(error.message);
         else if(data[0] == 0){ 
-                let error = "* Carnet Invalido";
-                res.send(error);
-            }
-            else if(data[0].solvencia_estudiante == "NO"){
-                let solvencia = "Estudiante no solvente";
-                res.send(solvencia);
-            }
-            else{
-                res.send(data[0]);
-            }
-    });
+            let error = "* Credenciales invalidas";
+            res.send(error);
+        }
+        else if(data[0].solvencia_estudiante == "NO"){
+            let solvencia = "Estudiante no solvente";
+            res.send(solvencia);
+        }
+        else{
+            res.send(data[0]);
+        }
+
+    });  
 });
 
 

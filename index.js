@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-
+const bodyParser = require('body-parser')
 const router = express.Router();
 
 
@@ -18,7 +18,9 @@ app.use(morgan('dev'));
 //     next();
 //  });
 
-
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 app.use((req, response, next)=>{
     response.header('Access-Control-Allow-Origin', '*');
