@@ -21,7 +21,6 @@ router.get('/api/allcourses',cors(),(req, res)=>{
 
 
 
-
 // router.get('/api/login/:id',cors(),(req, res)=>{
 //     res.header('Access-Control-Allow-Origin', '*');
 //     let {id} = req.params;

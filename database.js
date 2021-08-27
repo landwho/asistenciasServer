@@ -15,7 +15,6 @@ const mysqlConnection = mysql.createConnection({
     database : 'baj9a82sgal6klndqli9',
     port: 3306   
 
-    
 
 });
 
