@@ -26,6 +26,8 @@ solvenciaID int
 alter table estudiante add 
 FOREIGN KEY (solvenciaID) REFERENCES solvencia (id_solvencia);  
 
+--agregar nuevos estudiantes 
+
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Maria Jose","Alvares Flores","1990-12-15892","0000",1);
 
@@ -36,13 +38,23 @@ insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,
 values ("Jose Antonio","Esteves Chaves","1990-10-15892","0000",2);
 
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
-values ("Jorge Ricardo","Ubico Brooks","1990-09-15892","1234",1);
-
-insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Mario Alfredo","Tubac Gomez","1990-14-15892","0000",1);
 
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Maria Jose","Alvares Flores","1990-13-15892","0000",1);
+
+
+-- reales
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Henry Giovani","QUEXEL SOLIS ","1990-18-15829","c029",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("José","Zapeta Pérez","1990-09-4775","c029",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Jorge Ricardo","Ubico Brooks","1990-09-15892","1234",1);
+
+
 
 
 
@@ -184,6 +196,8 @@ add
 FOREIGN KEY (cursoID) REFERENCES cursos (id_curso);
 
 
+--asignar cursos a un estudiante
+
 insert into curso_estudiante (cursoID, estudianteID)
 values(1,1);
 insert into curso_estudiante (cursoID, estudianteID)
@@ -261,9 +275,10 @@ email_catedratico varchar(50),
 password_catedratico varchar(50)
 );
 
+--registrar un catedratico 
 
 insert into catedratico(nombre_catedratico,apellido_catedratico,email_catedratico,password_catedratico)
-values("catedratico ","paginas web","catedratico1@umg.edu.gt","1234");
+values("catedratico 1","UMG","catedratico1@umg.edu.gt","c28");
 
 insert into catedratico(nombre_catedratico,apellido_catedratico,email_catedratico,password_catedratico)
 values("catedratico ","1er ciclo","catedratico2@umg.edu.gt","0000");
@@ -310,7 +325,12 @@ insert into asistencias (fecha_asistencia, cursoID, estudianteID)
 values ("2021-08-27",1,6);
 
 
+-- insert curso by catedratico
 
+insert into curso_catedratico(catedraticoID,cursoID)
+values(1,1);
+insert into curso_catedratico(catedraticoID,cursoID)
+values(1,36);
 
 
 
@@ -394,6 +414,16 @@ where a.cursoID = 1 and a.fecha_asistencia = "2021-08-27"
 group by nombre_estudiante;
 
 
+-- ver los cursos que imparte el catedratico 
+
+select nombre_curso , nombre_catedratico, apellido_catedratico
+from curso_catedratico cc
+inner JOIN catedratico ca on ca.id_catedratico = cc.catedraticoID
+inner JOIN cursos c on cc.cursoID = c.id_curso 
+where cc.catedraticoID = 1
+group by nombre_curso;
+
+
 
 
 
@@ -423,15 +453,12 @@ group by nombre_estudiante;
 -- STORE PROCEDURA FOR LOGIN 
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `login`(_carnet varchar(50), _pass varchar(20))
-
 BEGIN
-
 SELECT id_estudiante, nombre_estudiante, apellido_estudiante,
 carnet_estudiante, solvenciaID
 FROM estudiante
 WHERE carnet_estudiante = _carnet and password_estudiante = _pass
 group by nombre_estudiante;
-
 END
 
 
@@ -463,12 +490,36 @@ END
 
 CREATE PROCEDURE `seeAssists` (_idCourse int, _date date)
 BEGIN
-
 select nombre_estudiante, carnet_estudiante, nombre_curso , fecha_asistencia
 from asistencias a 
 inner JOIN estudiante e on a.estudianteID = e.id_estudiante  
 inner JOIN cursos c on a.cursoID = c.id_curso 
 where a.cursoID = _idCourse and a.fecha_asistencia = _date
 group by nombre_estudiante;
+END
 
+
+
+-- STORE PROCEDURE FOR CATEDRATICO LOGIN 
+
+CREATE PROCEDURE `loginCatedratico` (_email varchar(50),_pass varchar(50))
+BEGIN
+SELECT id_catedratico, nombre_catedratico, apellido_catedratico
+FROM catedratico
+WHERE email_catedratico = _email and password_catedratico = _pass
+group by nombre_catedratico;
+END
+
+
+-- STORE PROCEDURE CURSOS QUE IMPARTE EL CATEDRATICO 
+
+
+CREATE PROCEDURE `catCourses` (_id int)
+BEGIN
+select nombre_curso , nombre_catedratico, apellido_catedratico
+from curso_catedratico cc
+inner JOIN catedratico ca on ca.id_catedratico = cc.catedraticoID
+inner JOIN cursos c on cc.cursoID = c.id_curso 
+where cc.catedraticoID = _id
+group by nombre_curso;
 END
