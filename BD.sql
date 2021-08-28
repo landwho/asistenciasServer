@@ -308,6 +308,22 @@ add
 FOREIGN KEY (cursoID) REFERENCES cursos (id_curso);
 
 
+-- asignarle cursos a un catedratico
+
+insert into catedratico(nombre_catedratico,apellido_catedratico,email_catedratico,password_catedratico)
+values("Antonio ","de Leon Bautista","antonio@umg.edu.gt","c28");
+
+insert into curso_catedratico (cursoID, catedraticoID)
+values(36,3);
+insert into curso_catedratico (cursoID, catedraticoID)
+values(1,3);
+insert into curso_catedratico (cursoID, catedraticoID)
+values(12,3);
+insert into curso_catedratico (cursoID, catedraticoID)
+values(17,3);
+insert into curso_catedratico (cursoID, catedraticoID)
+values(22,3);
+
 
 
 -- TABLE DE ASISTENCIAS 
@@ -546,5 +562,18 @@ FROM asistencias a
 inner JOIN estudiante e on e.id_estudiante = a.estudianteID
 inner JOIN cursos c on a.cursoID = c.id_curso 
 where a.cursoID = _id
+group by nombre_estudiante;
+END
+
+
+-- STORE PROCEDURE PARA TODOS LOS ESTUDIANTES DE UN CURSO
+
+CREATE PROCEDURE `studentList` (_id int)
+BEGIN
+select nombre_curso , nombre_estudiante, apellido_estudiante, carnet_estudiante
+from curso_estudiante cc
+inner JOIN estudiante e on e.id_estudiante = cc.estudianteID
+inner JOIN cursos c on cc.cursoID = c.id_curso 
+where cc.cursoID = _id
 group by nombre_estudiante;
 END
