@@ -54,7 +54,17 @@ values ("José","Zapeta Pérez","1990-09-4775","c029",1);
 insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
 values ("Jorge Ricardo","Ubico Brooks","1990-09-15892","1234",1);
 
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Jose Javier","Rodriguez Gonzales","1990-01-15892","0000",1);
 
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Carlos","Pinto Parado","1990-02-15892","0000",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Melissa Antonia","de la Cruz","1990-03-15892","0000",1);
+
+insert into estudiante (nombre_estudiante,apellido_estudiante,carnet_estudiante,password_estudiante,solvenciaID)
+values ("Jorge Antonio","Esteves Morales","1990-04-15892","0000",1);
 
 
 
