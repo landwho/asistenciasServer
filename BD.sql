@@ -523,3 +523,18 @@ inner JOIN cursos c on cc.cursoID = c.id_curso
 where cc.catedraticoID = _id
 group by nombre_curso;
 END
+
+
+
+-- STORE PROCEDURE PARA CONTAR FECHAS ENVIADAS
+
+CREATE PROCEDURE `viewStudents` (_id int)
+BEGIN
+SELECT nombre_estudiante, apellido_estudiante,carnet_estudiante, COUNT(*)"Sabados",
+COUNT(*)/0.14"punteo"
+FROM asistencias a
+inner JOIN estudiante e on e.id_estudiante = a.estudianteID
+inner JOIN cursos c on a.cursoID = c.id_curso 
+where a.cursoID = _id
+group by nombre_estudiante;
+END

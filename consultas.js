@@ -139,6 +139,23 @@ router.post('/api/cat/seeassist',cors(),(req,res)=>{
 
 
 
+router.post('/api/cat/viewassist',cors(),(req,res)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+    const {cursoID }= req.body;
+    const viewStudents = `call viewStudents(?)`
+    mysqlConnecttion.query(viewStudents,[cursoID],(error, data, fields)=>{
+        if(!!error) console.log(error.message);
+        else if(data[0] == 0){ 
+            let error = "* Credenciales invalidas";
+            res.send(error);
+        }else{
+            res.send(data[0]);
+        }
+    });  
+});
+
+
+
 
 
 
